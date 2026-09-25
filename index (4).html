@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<!-- lang="fr" : indique la langue de la page aux lecteurs d'écran et aux navigateurs -->
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <!-- Rend la page responsive : la largeur suit celle de l'écran -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Léa Marchand – Étudiante en école de commerce</title>
+  <!-- Texte affiché par les moteurs de recherche sous le titre -->
+  <meta name="description" content="Portfolio de Léa Marchand, étudiante en école de commerce, à la recherche d'un stage en finance d'entreprise.">
+  <link rel="stylesheet" href="style.css">
+  <!-- "defer" : le script se charge sans bloquer l'affichage de la page -->
+  <script src="script.js" defer></script>
+</head>
+<body>
+
+  <!-- Lien d'accessibilité : permet aux utilisateurs du clavier de passer le menu -->
+  <a class="skip-link" href="#contenu">Aller au contenu</a>
+
+  <!-- ===== EN-TÊTE : nom + navigation ===== -->
+  <header class="site-header">
+    <p class="logo">Léa Marchand</p>
+    <!-- aria-label : décrit le rôle de ce menu pour les lecteurs d'écran -->
+    <nav aria-label="Navigation principale">
+      <ul>
+        <li><a href="#competences">Compétences</a></li>
+        <li><a href="#projets">Projets</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main id="contenu">
+
+    <!-- ===== PRÉSENTATION + IMAGE ===== -->
+    <section class="hero" aria-labelledby="titre-accueil">
+      <div class="hero-text">
+        <!-- Un seul <h1> par page : c'est le titre principal -->
+        <h1 id="titre-accueil">Léa Marchand</h1>
+        <p class="tagline">Étudiante en école de commerce, je cherche un stage en finance d'entreprise.</p>
+        <p>
+          Je suis en deuxième année de Programme Grande École. J'aime transformer des chiffres
+          en décisions claires et défendre mes idées à l'oral. Disponible pour un stage de six mois.
+        </p>
+        <a class="button" href="#contact">Me contacter</a>
+      </div>
+
+      <!-- <figure> regroupe une image ; l'attribut alt décrit l'image pour les lecteurs d'écran -->
+      <figure class="portrait">
+        <!--
+          ============ POUR CHANGER LA PHOTO ============
+          1. Copiez votre photo dans le même dossier que index.html
+             (exemple : ma-photo.jpg ; les formats .jpg, .png et .webp fonctionnent).
+          2. Remplacez photo.png ci-dessous par le nom exact de votre fichier
+             (attention aux majuscules, aux espaces et à l'extension).
+          3. Modifiez le texte de alt pour décrire votre photo
+             (exemple : "Portrait de Léa Marchand, souriante, en veste bleue").
+          Le CSS recadre automatiquement la photo au format portrait :
+          un cadrage vertical, avec le visage dans la moitié haute, donne le meilleur résultat.
+          ===============================================
+        -->
+        <img src="photo.png" alt="Portrait professionnel" width="480" height="600">
+      </figure>
+    </section>
+
+    <!-- ===== QUATRE COMPÉTENCES ===== -->
+    <section id="competences" aria-labelledby="titre-competences">
+      <h2 id="titre-competences">Compétences</h2>
+      <ul class="competences">
+        <li>
+          <h3>Analyse financière</h3>
+          <p>Lecture de bilans, calcul de ratios et construction de modèles simples sous Excel.</p>
+        </li>
+        <li>
+          <h3>Analyse de données</h3>
+          <p>Tableaux croisés dynamiques et graphiques, avec des synthèses lisibles par un public non expert.</p>
+        </li>
+        <li>
+          <h3>Communication orale</h3>
+          <p>Présentation de dossiers devant un jury et argumentation claire, même avec un temps limité.</p>
+        </li>
+        <li>
+          <h3>Gestion de projet</h3>
+          <p>Répartition des tâches en équipe, suivi du planning et respect des délais.</p>
+        </li>
+      </ul>
+    </section>
+
+    <!-- ===== DEUX PROJETS ===== -->
+    <!-- Chaque projet est un <article> : un bloc de contenu qui a du sens tout seul -->
+    <section id="projets" aria-labelledby="titre-projets">
+      <h2 id="titre-projets">Projets</h2>
+
+      <article class="projet">
+        <div>
+          <h3>Étude de marché pour une épicerie en ligne</h3>
+          <p class="projet-cadre">Projet de groupe, 5 personnes, 3 mois</p>
+        </div>
+        <div>
+          <p>
+            J'ai construit un questionnaire diffusé auprès de 150 personnes, puis analysé les réponses
+            pour estimer la taille du marché local.
+          </p>
+          <p class="projet-resultat">Trois axes de développement présentés devant un jury de professeurs.</p>
+        </div>
+      </article>
+
+      <article class="projet">
+        <div>
+          <h3>Simulation de gestion d'entreprise</h3>
+          <p class="projet-cadre">Jeu de simulation en classe, second semestre</p>
+        </div>
+        <div>
+          <p>
+            Chargée des prévisions de trésorerie et du suivi des coûts, j'ai proposé chaque trimestre
+            un budget ajusté aux résultats de mon équipe.
+          </p>
+          <p class="projet-resultat">3e place sur 40 équipes.</p>
+        </div>
+      </article>
+    </section>
+
+    <!-- ===== CONTACT ===== -->
+    <section id="contact" aria-labelledby="titre-contact">
+      <h2 id="titre-contact">Parlons de votre prochain stage</h2>
+      <p>Je réponds à chaque message sous 48 heures.</p>
+      <div class="actions">
+        <!-- mailto: ouvre la messagerie de l'utilisateur. Fonctionne sans JavaScript -->
+        <a class="button" id="lien-email" href="mailto:lea.marchand@exemple.fr">Envoyer un e-mail à Léa</a>
+        <!-- Bouton masqué par défaut (hidden) : script.js l'affiche s'il peut fonctionner -->
+        <button class="button button-secondaire" id="copier-email" type="button" hidden>Copier l'adresse e-mail</button>
+      </div>
+      <!-- role="status" : le message est annoncé automatiquement par les lecteurs d'écran -->
+      <p id="copie-statut" role="status"></p>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <!-- L'année est mise à jour automatiquement par script.js -->
+    <p>© <span id="annee">2026</span> Léa Marchand</p>
+  </footer>
+
+</body>
+</html>

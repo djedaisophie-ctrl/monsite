@@ -1,0 +1,193 @@
+/* ==========================================================
+   1. VARIABLES
+   Les couleurs et polices sont définies une seule fois ici.
+   Pour changer l'allure du site, modifiez ces valeurs.
+   ========================================================== */
+:root {
+  --papier: #f7f8fa;        /* fond de la page */
+  --encre: #0e1b2c;         /* texte principal (bleu nuit) */
+  --gris: #4a5568;          /* texte secondaire */
+  --accent: #2447d6;        /* bleu cobalt : liens, boutons */
+  --accent-clair: #dce5ff;  /* bleu très clair */
+  --trait: #cbd3e1;         /* fines lignes de séparation */
+
+  /* Polices déjà présentes sur l'ordinateur : aucun téléchargement */
+  --serif: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+  --sans: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+
+  --largeur: 68rem;         /* largeur maximale du contenu */
+}
+
+/* ==========================================================
+   2. BASE
+   ========================================================== */
+/* Le padding est inclus dans la largeur des éléments : plus simple à calculer */
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--papier);
+  color: var(--encre);
+  font-family: var(--sans);
+  font-size: 1.0625rem;
+  line-height: 1.65;
+}
+
+/* Défilement doux, seulement si l'utilisateur n'a pas demandé moins d'animations */
+@media (prefers-reduced-motion: no-preference) {
+  html { scroll-behavior: smooth; }
+}
+
+/* Fait respecter l'attribut hidden, même sur un élément avec display défini */
+[hidden] { display: none !important; }
+
+img { display: block; max-width: 100%; height: auto; }
+h1, h2, h3 { margin: 0; line-height: 1.15; }
+p { margin: 0 0 1rem; max-width: 60ch; }  /* 60ch : lignes courtes, lecture confortable */
+a { color: var(--accent); }
+
+/* Contour visible quand on navigue au clavier (accessibilité) */
+:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
+
+/* Lien "Aller au contenu" : caché hors écran, visible quand il reçoit le focus */
+.skip-link {
+  position: absolute; top: -4rem; left: 1rem; z-index: 10;
+  padding: 0.6rem 1rem; background: var(--encre); color: #fff;
+}
+.skip-link:focus { top: 1rem; }
+
+/* ==========================================================
+   3. MISE EN PAGE GÉNÉRALE
+   Tous les blocs principaux sont centrés et gardent des marges sur les côtés.
+   ========================================================== */
+.site-header, main > section, .site-footer {
+  width: min(100% - 2.5rem, var(--largeur));
+  margin-inline: auto;
+}
+main > section { padding-block: clamp(3rem, 8vw, 5.5rem); }
+
+h2 {
+  font-family: var(--serif);
+  font-size: clamp(1.8rem, 4vw, 2.5rem);
+  margin-bottom: 2rem;
+}
+
+/* ==========================================================
+   4. EN-TÊTE
+   ========================================================== */
+.site-header {
+  display: flex; flex-wrap: wrap;             /* passe à la ligne sur petit écran */
+  justify-content: space-between; align-items: center;
+  gap: 0.75rem 2rem;
+  padding-block: 1.5rem;
+}
+.logo { margin: 0; font-family: var(--serif); font-weight: 700; font-size: 1.15rem; }
+
+.site-header ul { display: flex; gap: 1.5rem; margin: 0; padding: 0; list-style: none; }
+.site-header nav a {
+  color: var(--encre); text-decoration: none;
+  padding-block: 0.25rem; border-bottom: 2px solid transparent;
+}
+.site-header nav a:hover { border-color: var(--accent); }
+
+/* ==========================================================
+   5. PRÉSENTATION (hero) : la partie la plus visible
+   ========================================================== */
+/* Grid : une colonne sur mobile, deux colonnes à partir de 52rem */
+.hero { display: grid; gap: 3rem; align-items: center; }
+@media (min-width: 52rem) {
+  .hero { grid-template-columns: 1.15fr 0.85fr; }
+}
+
+.hero h1 {
+  font-family: var(--serif);
+  /* clamp(min, souple, max) : la taille s'adapte à l'écran entre deux limites */
+  font-size: clamp(3.2rem, 9vw, 6rem);
+  letter-spacing: -0.02em;
+  margin-bottom: 1.25rem;
+}
+.tagline {
+  font-family: var(--serif);
+  font-size: clamp(1.3rem, 2.6vw, 1.75rem);
+  line-height: 1.35;
+  margin-bottom: 1.25rem;
+}
+
+/* Animation d'entrée unique, uniquement si l'utilisateur l'accepte */
+@media (prefers-reduced-motion: no-preference) {
+  .hero-text { animation: entree 0.8s ease-out both; }
+  @keyframes entree { from { opacity: 0; transform: translateY(1rem); } }
+}
+
+/* Portrait en forme d'arche, avec un bloc bleu décalé derrière */
+.portrait { position: relative; width: 100%; max-width: 22rem; justify-self: center; margin: 0; }
+.portrait::before {                 /* ::before crée un élément décoratif sans HTML */
+  content: "";
+  position: absolute; inset: 1rem -1rem -1rem 1rem;   /* haut droite bas gauche */
+  background: var(--accent);
+  border-radius: 999px 999px 0 0;   /* coins hauts très arrondis = arche */
+}
+.portrait img {
+  position: relative; width: 100%;
+  border-radius: 999px 999px 0 0;
+  aspect-ratio: 4 / 5;          /* cadre fixe au format portrait, quelle que soit la photo */
+  object-fit: cover;            /* recadre la photo pour remplir le cadre sans la déformer */
+  object-position: center top;  /* garde le haut de la photo (le visage) visible */
+}
+
+/* ==========================================================
+   6. BOUTONS (utilisés dans la présentation et le contact)
+   ========================================================== */
+.button {
+  display: inline-block;
+  padding: 0.8rem 1.5rem;
+  border: 2px solid var(--accent); border-radius: 0.5rem;
+  background: var(--accent); color: #fff;
+  font: inherit; font-weight: 600; text-decoration: none;
+  cursor: pointer;
+}
+.button:hover { background: var(--encre); border-color: var(--encre); }
+
+/* Variante "contour" du bouton */
+.button-secondaire { background: transparent; color: var(--accent); }
+.button-secondaire:hover { background: var(--accent-clair); border-color: var(--accent); color: var(--encre); }
+
+/* ==========================================================
+   7. COMPÉTENCES
+   ========================================================== */
+.competences {
+  display: grid; gap: 2rem 3rem;
+  margin: 0; padding: 0; list-style: none;
+}
+@media (min-width: 40rem) {
+  .competences { grid-template-columns: 1fr 1fr; }   /* 2 colonnes x 2 lignes */
+}
+.competences li { border-top: 3px solid var(--accent); padding-top: 1rem; }
+.competences h3 { font-size: 1.15rem; margin-bottom: 0.4rem; }
+.competences p { margin: 0; color: var(--gris); }
+
+/* ==========================================================
+   8. PROJETS
+   Titre à gauche, description à droite sur grand écran.
+   ========================================================== */
+.projet {
+  display: grid; gap: 0.75rem 3rem;
+  padding-block: 2rem;
+  border-top: 1px solid var(--trait);
+}
+.projet:last-of-type { border-bottom: 1px solid var(--trait); }
+@media (min-width: 52rem) {
+  .projet { grid-template-columns: 1fr 2fr; }
+}
+.projet h3 { font-family: var(--serif); font-size: 1.6rem; }
+.projet-cadre { margin: 0.5rem 0 0; color: var(--gris); font-size: 0.95rem; }
+.projet-resultat { margin-bottom: 0; font-weight: 600; }
+
+/* ==========================================================
+   9. CONTACT ET PIED DE PAGE
+   ========================================================== */
+.actions { display: flex; flex-wrap: wrap; gap: 1rem; }
+#copie-statut { min-height: 1.65em; margin: 1rem 0 0; color: var(--gris); }
+
+.site-footer { padding-block: 2rem; border-top: 1px solid var(--trait); color: var(--gris); }
+.site-footer p { margin: 0; }
